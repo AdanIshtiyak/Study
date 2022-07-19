@@ -6,8 +6,6 @@ namespace ContosoUniversity.Data.Configurations
 {
     public class EnrollmentConfiguration : IEntityTypeConfiguration<Enrollment>
     {
-        public List<Student> students;
-        public List<Course> courses;
         public void Configure(EntityTypeBuilder<Enrollment> builder)
         {
             builder.HasOne(x => x.Student).WithMany(x => x.Enrollments).HasForeignKey(x => x.StudentID);
@@ -15,67 +13,78 @@ namespace ContosoUniversity.Data.Configurations
 
             builder.HasData(new Enrollment
             {
-                StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                CourseID = courses.Single(c => c.Title == "Chemistry").ID,
+                ID = 1,
+                StudentID = 1,
+                CourseID = 1050,
                 Grade = Grade.A
             },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                        CourseID = courses.Single(c => c.Title == "Microeconomics").ID,
+                        ID = 2,
+                        StudentID = 2,
+                        CourseID = 1050,
                         Grade = Grade.C
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Alexander").ID,
-                        CourseID = courses.Single(c => c.Title == "Macroeconomics").ID,
+                        ID = 3,
+                        StudentID = 3,
+                        CourseID = 4022,
                         Grade = Grade.B
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                        CourseID = courses.Single(c => c.Title == "Calculus").ID,
+                        ID = 4,
+                        StudentID = 4,
+                        CourseID = 4041,
                         Grade = Grade.B
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                        CourseID = courses.Single(c => c.Title == "Trigonometry").ID,
+                        ID = 5,
+                        StudentID = 5,
+                        CourseID = 1045,
                         Grade = Grade.B
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Alonso").ID,
-                        CourseID = courses.Single(c => c.Title == "Composition").ID,
+                        ID = 6,
+                        StudentID = 6,
+                        CourseID = 2021,
                         Grade = Grade.B
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Anand").ID,
-                        CourseID = courses.Single(c => c.Title == "Chemistry").ID
+                        ID = 7,
+                        StudentID = 7,
+                        CourseID = 3141
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Anand").ID,
-                        CourseID = courses.Single(c => c.Title == "Microeconomics").ID,
+                        ID = 8,
+                        StudentID = 8,
+                        CourseID = 2042,
                         Grade = Grade.B
                     },
                 new Enrollment
                 {
-                    StudentID = students.Single(s => s.LastName == "Barzdukas").ID,
-                    CourseID = courses.Single(c => c.Title == "Chemistry").ID,
+                    ID = 9,
+                    StudentID = 1,
+                    CourseID = 4022,
                     Grade = Grade.B
                 },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Li").ID,
-                        CourseID = courses.Single(c => c.Title == "Composition").ID,
+                        ID = 10,
+                        StudentID = 2,
+                        CourseID = 4041,
                         Grade = Grade.B
                     },
                     new Enrollment
                     {
-                        StudentID = students.Single(s => s.LastName == "Justice").ID,
-                        CourseID = courses.Single(c => c.Title == "Literature").ID,
+                        ID = 11,
+                        StudentID = 3,
+                        CourseID = 1045,
                         Grade = Grade.B
                     });
         }

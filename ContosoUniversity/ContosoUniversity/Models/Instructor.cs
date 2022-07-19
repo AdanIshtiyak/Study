@@ -21,10 +21,12 @@ namespace ContosoUniversity.Models
         [Display(Name = "Hire Date")]
         public DateTime HireDate { get; set; }
 
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [Display(Name = "Full Name")]
         public string FullName
         {
-            get { return LastName + ", " + FirstMidName; }
+            get { return LastName + " " + FirstMidName; }
         }
         public Department? Department { get; set; } 
         public ICollection<CourseAssignment>? CourseAssignments { get; set; }

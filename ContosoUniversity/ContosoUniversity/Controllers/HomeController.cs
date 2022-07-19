@@ -1,10 +1,7 @@
 ﻿using ContosoUniversity.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
 using ContosoUniversity.Data;
-using ContosoUniversity.Models.SchoolViewModels;
-using Microsoft.Extensions.Logging;
 
 namespace ContosoUniversity.Controllers
 {
@@ -26,15 +23,7 @@ namespace ContosoUniversity.Controllers
 
         public async Task<ActionResult> About()
         {
-            IQueryable<EnrollmentDateGroup> data =
-                from student in _context.Students
-                group student by student.EnrollmentDate into dateGroup
-                select new EnrollmentDateGroup()
-                {
-                    EnrollmentDate = dateGroup.Key,
-                    StudentCount = dateGroup.Count()
-                };
-            return View(await data.AsNoTracking().ToListAsync());
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -6,52 +6,51 @@ namespace ContosoUniversity.Data.Configurations
 {
     public class CourseAssignmentConfiguration : IEntityTypeConfiguration<CourseAssignment>
     {
-        public List<Course> courses;
-        public List<Instructor> instructors;
         public void Configure(EntityTypeBuilder<CourseAssignment> builder)
         {
+
             builder.HasOne(x => x.Course).WithMany(x => x.CourseAssignments).HasForeignKey(x => x.CourseID).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Instructor).WithMany(x => x.CourseAssignments).HasForeignKey(x => x.InstructorID).OnDelete(DeleteBehavior.NoAction);
 
             builder.HasData(new CourseAssignment
             {
-                CourseID = courses.Single(c => c.Title == "Chemistry").ID,
-                InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID
+                CourseID = 1050,
+                InstructorID = 1
             },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Chemistry").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Harui").ID
+                    CourseID = 1050,
+                    InstructorID = 2
                 },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Microeconomics").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
+                    CourseID = 4022,
+                    InstructorID = 3
                 },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Macroeconomics").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Zheng").ID
+                    CourseID = 4041,
+                    InstructorID = 4
                 },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Calculus").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID
+                    CourseID = 1045,
+                    InstructorID = 5
                 },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Trigonometry").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Harui").ID
+                    CourseID = 3141,
+                    InstructorID = 1
                 },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Composition").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
+                    CourseID = 2021,
+                    InstructorID = 2
                 },
                 new CourseAssignment
                 {
-                    CourseID = courses.Single(c => c.Title == "Literature").ID,
-                    InstructorID = instructors.Single(i => i.LastName == "Abercrombie").ID
+                    CourseID = 2042,
+                    InstructorID = 3
                 });
         }
     }

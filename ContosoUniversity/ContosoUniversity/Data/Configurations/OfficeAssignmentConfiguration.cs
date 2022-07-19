@@ -6,26 +6,26 @@ namespace ContosoUniversity.Data.Configurations
 {
     public class OfficeAssignmentConfiguration : IEntityTypeConfiguration<OfficeAssignment>
     {
-        public List<Instructor> instructors;
+        private List<Instructor> instructors = new List<Instructor>();
         public void Configure(EntityTypeBuilder<OfficeAssignment> builder)
         {
             builder.Property(x => x.Location).HasMaxLength(50);
 
-            builder.HasOne(x => x.Instructor).WithOne(x => x.OfficeAssignment).HasForeignKey("InstructorID").IsRequired(false);
+            builder.HasOne(x => x.Instructor).WithOne(x => x.OfficeAssignment).IsRequired(false);
 
             builder.HasData(new OfficeAssignment
             {
-                InstructorID = instructors.Single(i => i.LastName == "Fakhouri").ID,
+                InstructorID = 1,
                 Location = "Smith 17"
+            },
+            new OfficeAssignment
+            {
+                InstructorID = 2,
+                Location = "Gowan 27"
             },
                 new OfficeAssignment
                 {
-                    InstructorID = instructors.Single(i => i.LastName == "Harui").ID,
-                    Location = "Gowan 27"
-                },
-                new OfficeAssignment
-                {
-                    InstructorID = instructors.Single(i => i.LastName == "Kapoor").ID,
+                    InstructorID = 3,
                     Location = "Thompson 304"
                 });
         }
