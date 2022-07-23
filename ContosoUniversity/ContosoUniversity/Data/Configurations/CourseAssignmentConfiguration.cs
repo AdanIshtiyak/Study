@@ -11,7 +11,7 @@ namespace ContosoUniversity.Data.Configurations
 
             builder.HasOne(x => x.Course).WithMany(x => x.CourseAssignments).HasForeignKey(x => x.CourseID).OnDelete(DeleteBehavior.NoAction);
             builder.HasOne(x => x.Instructor).WithMany(x => x.CourseAssignments).HasForeignKey(x => x.InstructorID).OnDelete(DeleteBehavior.NoAction);
-
+            builder.HasKey("CourseID", "InstructorID");
             builder.HasData(new CourseAssignment
             {
                 CourseID = 1050,

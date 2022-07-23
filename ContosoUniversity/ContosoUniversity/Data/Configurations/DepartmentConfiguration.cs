@@ -15,6 +15,8 @@ namespace ContosoUniversity.Data.Configurations
 
             builder.HasOne(x => x.Administrator).WithOne(x => x.Department).IsRequired();
 
+            builder.Property(p => p.RowVersion).IsConcurrencyToken();
+
             builder.HasData(new Department
             {
                 ID = 1,

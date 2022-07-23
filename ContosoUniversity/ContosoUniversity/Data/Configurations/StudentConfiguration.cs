@@ -13,56 +13,56 @@ namespace ContosoUniversity.Data.Configurations
 
             builder.HasData(new Student
             {
-                ID = 1,
+                ID = 6,
                 FirstMidName = "Carson",
                 LastName = "Alexander",
                 EnrollmentDate = DateTime.Parse("2010-09-01")
             },
                 new Student
                 {
-                    ID = 2,
+                    ID = 7,
                     FirstMidName = "Meredith",
                     LastName = "Alonso",
                     EnrollmentDate = DateTime.Parse("2012-09-01")
                 },
                 new Student
                 {
-                    ID = 3,
+                    ID = 8,
                     FirstMidName = "Arturo",
                     LastName = "Anand",
                     EnrollmentDate = DateTime.Parse("2013-09-01")
                 },
                 new Student
                 {
-                    ID = 4,
+                    ID = 9,
                     FirstMidName = "Gytis",
                     LastName = "Barzdukas",
                     EnrollmentDate = DateTime.Parse("2012-09-01")
                 },
                 new Student
                 {
-                    ID = 5,
+                    ID = 10,
                     FirstMidName = "Yan",
                     LastName = "Li",
                     EnrollmentDate = DateTime.Parse("2012-09-01")
                 },
                 new Student
                 {
-                    ID = 6,
+                    ID = 11,
                     FirstMidName = "Peggy",
                     LastName = "Justice",
                     EnrollmentDate = DateTime.Parse("2011-09-01")
                 },
                 new Student
                 {
-                    ID = 7,
+                    ID = 12,
                     FirstMidName = "Laura",
                     LastName = "Norman",
                     EnrollmentDate = DateTime.Parse("2013-09-01")
                 },
                 new Student
                 {
-                    ID = 8,
+                    ID = 13,
                     FirstMidName = "Nino",
                     LastName = "Olivetto",
                     EnrollmentDate = DateTime.Parse("2005-09-01")

@@ -10,7 +10,7 @@ namespace ContosoUniversity.Data.Configurations
         {
             builder.Property(x => x.Title).HasMaxLength(50).IsRequired();
 
-            builder.HasOne(x => x.Department).WithMany(x => x.Courses).HasForeignKey(x => x.DepartmentID);
+            builder.HasOne(x => x.Department).WithMany(x => x.Courses).HasForeignKey(x => x.DepartmentID).OnDelete(DeleteBehavior.SetNull);
 
             builder.HasData(new Course
             {

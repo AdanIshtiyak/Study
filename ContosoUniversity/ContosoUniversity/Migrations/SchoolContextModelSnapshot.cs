@@ -30,7 +30,7 @@ namespace ContosoUniversity.Migrations
                     b.Property<int>("Credits")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentID")
+                    b.Property<int?>("DepartmentID")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -164,13 +164,20 @@ namespace ContosoUniversity.Migrations
                     b.Property<decimal>("Budget")
                         .HasColumnType("money");
 
-                    b.Property<int>("InstructorID")
+                    b.Property<int?>("InstructorID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -321,70 +328,6 @@ namespace ContosoUniversity.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("FirstMidName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("FirstName");
-
-                    b.Property<DateTime>("HireDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Instructors");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            FirstMidName = "Kim",
-                            HireDate = new DateTime(1995, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastName = "Abercrombie"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            FirstMidName = "Fadi",
-                            HireDate = new DateTime(2002, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastName = "Fakhouri"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            FirstMidName = "Roger",
-                            HireDate = new DateTime(1998, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastName = "Harui"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            FirstMidName = "Candace",
-                            HireDate = new DateTime(2001, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastName = "Kapoor"
-                        },
-                        new
-                        {
-                            ID = 5,
-                            FirstMidName = "Roger",
-                            HireDate = new DateTime(2004, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastName = "Zheng"
-                        });
-                });
-
             modelBuilder.Entity("ContosoUniversity.Models.OfficeAssignment", b =>
                 {
                     b.Property<int>("InstructorID")
@@ -416,7 +359,7 @@ namespace ContosoUniversity.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
+            modelBuilder.Entity("ContosoUniversity.Models.Person", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -424,14 +367,14 @@ namespace ContosoUniversity.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
-                    b.Property<DateTime>("EnrollmentDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstMidName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("FirstName");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -440,64 +383,123 @@ namespace ContosoUniversity.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Students");
+                    b.ToTable("People");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+                });
+
+            modelBuilder.Entity("ContosoUniversity.Models.Instructor", b =>
+                {
+                    b.HasBaseType("ContosoUniversity.Models.Person");
+
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue("Instructor");
 
                     b.HasData(
                         new
                         {
                             ID = 1,
-                            EnrollmentDate = new DateTime(2010, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Carson",
-                            LastName = "Alexander"
+                            FirstMidName = "Kim",
+                            LastName = "Abercrombie",
+                            HireDate = new DateTime(1995, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 2,
-                            EnrollmentDate = new DateTime(2012, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Meredith",
-                            LastName = "Alonso"
+                            FirstMidName = "Fadi",
+                            LastName = "Fakhouri",
+                            HireDate = new DateTime(2002, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 3,
-                            EnrollmentDate = new DateTime(2013, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Arturo",
-                            LastName = "Anand"
+                            FirstMidName = "Roger",
+                            LastName = "Harui",
+                            HireDate = new DateTime(1998, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 4,
-                            EnrollmentDate = new DateTime(2012, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Gytis",
-                            LastName = "Barzdukas"
+                            FirstMidName = "Candace",
+                            LastName = "Kapoor",
+                            HireDate = new DateTime(2001, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 5,
-                            EnrollmentDate = new DateTime(2012, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Yan",
-                            LastName = "Li"
-                        },
+                            FirstMidName = "Roger",
+                            LastName = "Zheng",
+                            HireDate = new DateTime(2004, 2, 12, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ContosoUniversity.Models.Student", b =>
+                {
+                    b.HasBaseType("ContosoUniversity.Models.Person");
+
+                    b.Property<DateTime>("EnrollmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasDiscriminator().HasValue("Student");
+
+                    b.HasData(
                         new
                         {
                             ID = 6,
-                            EnrollmentDate = new DateTime(2011, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Peggy",
-                            LastName = "Justice"
+                            FirstMidName = "Carson",
+                            LastName = "Alexander",
+                            EnrollmentDate = new DateTime(2010, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 7,
-                            EnrollmentDate = new DateTime(2013, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FirstMidName = "Laura",
-                            LastName = "Norman"
+                            FirstMidName = "Meredith",
+                            LastName = "Alonso",
+                            EnrollmentDate = new DateTime(2012, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ID = 8,
-                            EnrollmentDate = new DateTime(2005, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstMidName = "Arturo",
+                            LastName = "Anand",
+                            EnrollmentDate = new DateTime(2013, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 9,
+                            FirstMidName = "Gytis",
+                            LastName = "Barzdukas",
+                            EnrollmentDate = new DateTime(2012, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 10,
+                            FirstMidName = "Yan",
+                            LastName = "Li",
+                            EnrollmentDate = new DateTime(2012, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 11,
+                            FirstMidName = "Peggy",
+                            LastName = "Justice",
+                            EnrollmentDate = new DateTime(2011, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 12,
+                            FirstMidName = "Laura",
+                            LastName = "Norman",
+                            EnrollmentDate = new DateTime(2013, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 13,
                             FirstMidName = "Nino",
-                            LastName = "Olivetto"
+                            LastName = "Olivetto",
+                            EnrollmentDate = new DateTime(2005, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -506,8 +508,7 @@ namespace ContosoUniversity.Migrations
                     b.HasOne("ContosoUniversity.Models.Department", "Department")
                         .WithMany("Courses")
                         .HasForeignKey("DepartmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Department");
                 });
